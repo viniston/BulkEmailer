@@ -505,6 +505,7 @@
     <Content Include="bower_components\assets\js\Jquery\plugins\scayt\README.md" />
     <Content Include="bower_components\assets\js\Jquery\plugins\wsc\LICENSE.md" />
     <Content Include="bower_components\assets\js\Jquery\plugins\wsc\README.md" />
+    <None Include="Properties\PublishProfiles\BulkEmailer.pubxml" />
     <None Include="Properties\PublishProfiles\DevelopmentBase.pubxml" />
     <None Include="Properties\PublishProfiles\GALETEST.pubxml" />
     <None Include="Properties\PublishProfiles\SecretCms.pubxml" />

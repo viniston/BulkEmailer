@@ -1,0 +1,17 @@
+D:\Company-Projects\BulkEmailer\Development\Core\bin\Release\Development.Core.dll.config
+D:\Company-Projects\BulkEmailer\Development\Core\bin\Release\Development.Core.dll
+D:\Company-Projects\BulkEmailer\Development\Core\bin\Release\Development.Core.pdb
+D:\Company-Projects\BulkEmailer\Development\Core\bin\Release\Development.Dal.dll
+D:\Company-Projects\BulkEmailer\Development\Core\bin\Release\EPPlus.dll
+D:\Company-Projects\BulkEmailer\Development\Core\bin\Release\ICSharpCode.SharpZipLib.dll
+D:\Company-Projects\BulkEmailer\Development\Core\bin\Release\log4net.dll
+D:\Company-Projects\BulkEmailer\Development\Core\bin\Release\Newtonsoft.Json.dll
+D:\Company-Projects\BulkEmailer\Development\Core\bin\Release\NHibernate.dll
+D:\Company-Projects\BulkEmailer\Development\Core\bin\Release\Development.Dal.pdb
+D:\Company-Projects\BulkEmailer\Development\Core\bin\Release\EPPlus.xml
+D:\Company-Projects\BulkEmailer\Development\Core\bin\Release\log4net.xml
+D:\Company-Projects\BulkEmailer\Development\Core\bin\Release\Newtonsoft.Json.xml
+D:\Company-Projects\BulkEmailer\Development\Core\bin\Release\NHibernate.xml
+D:\Company-Projects\BulkEmailer\Development\Core\obj\Release\Development.Core.csprojResolveAssemblyReference.cache
+D:\Company-Projects\BulkEmailer\Development\Core\obj\Release\Development.Core.dll
+D:\Company-Projects\BulkEmailer\Development\Core\obj\Release\Development.Core.pdb

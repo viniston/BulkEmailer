@@ -1,0 +1,8 @@
+D:\Company-Projects\BulkEmailer\Development\Dal\bin\Release\Development.Dal.dll
+D:\Company-Projects\BulkEmailer\Development\Dal\bin\Release\Development.Dal.pdb
+D:\Company-Projects\BulkEmailer\Development\Dal\bin\Release\log4net.dll
+D:\Company-Projects\BulkEmailer\Development\Dal\bin\Release\NHibernate.dll
+D:\Company-Projects\BulkEmailer\Development\Dal\bin\Release\log4net.xml
+D:\Company-Projects\BulkEmailer\Development\Dal\bin\Release\NHibernate.xml
+D:\Company-Projects\BulkEmailer\Development\Dal\obj\Release\Development.Dal.dll
+D:\Company-Projects\BulkEmailer\Development\Dal\obj\Release\Development.Dal.pdb
