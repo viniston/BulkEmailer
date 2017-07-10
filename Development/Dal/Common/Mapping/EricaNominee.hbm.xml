@@ -8,7 +8,7 @@
     <property type="int"  name="Office" column="Office"/>
     <property type="string"  name="Subject" column="Subject"/>
     <property type="string"  name="SourceFileName" column="SourceFileName"/>
-    <property type="DateTime" name="AwardDate" column="AwardDate"/>
+    <property type="string" name="AwardDate" column="AwardDate"/>
     <property type="DateTime"  name="DateCreated" column="DateCreated"/>
   </class>
 </hibernate-mapping>

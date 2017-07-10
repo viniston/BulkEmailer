@@ -49,6 +49,10 @@ $(document).ready(function () {
 
         initialize: function () {
             this.initInputForm();
+            this
+              .historyTemplate =
+              '{{#Response}}<tr><td><b>{{Quarter}}</b></td><td>{{AwardDate}}</td><td>{{Subject}}</td><td>{{Office}}</td><td><input type="button" id="{{Id}}" class="btn btn-small btn-primary btn-process" value="Process" /></td></tr>{{/Response}}';
+            this.render();
         },
 
         initInputForm: function () {
@@ -67,16 +71,14 @@ $(document).ready(function () {
                 }
             });
             $(".data-picker").datepicker('setDate', moment().toDate());
+
         },
 
         // Submit the Speed entry form with a help of WindModel...
 
         doUpload: function (e) {
-            var template,
-                $form,
+            var $form,
                 self = this;
-            template = '{{#PropertyResult}}<tr><td><b>{{PropertyName}}</b></td><td>{{PropertyID}}</td><td>{{Rating}}</td><td>{{Country}}</td><td>{{Region}}</td><td>{{PropertyReferenceID}}</td>' +
-                '<td>{{Resort}}</td><td><input type="button" class="btn btn-small btn-primary" value="select" /></td></tr>{{/PropertyResult}}';
             $form = this.$('#RegMetadata');
 
             // create model for controller
@@ -93,28 +95,59 @@ $(document).ready(function () {
                 dataType: 'json',
                 data: model,
                 processData: false,
-                contentType: false,// not json
-                complete: function (data) {
-                    var mediaId = $.parseJSON(data.responseText); //?
-
+                contentType: false,
+                success: function (data) {
+                    $.notify("Erica nomination list uploaded successfully", "success");
+                    if (data.Response != null) {
+                        var htm = Mustache.render(self.historyTemplate, data);
+                        self.$("#tbdyHistory").html(htm);
+                    }
                 },
                 error: function (response) {
-                    console.log(response.responseText);
+                    $.notify("Erica nomination list not uploaded", "warn");
                 }
             });
             return true;
 
         },
 
+        getHistory: function () {
+            var self = this;
+
+            $.ajax({
+                url: "api/Common/GetHistory",
+                type: 'Get',
+                dataType: 'json',
+                success: function (data) {
+                    if (data.Response != null) {
+                        var htm = Mustache.render(self.historyTemplate, data);
+                        self.$("#tbdyHistory").html(htm);
+                    }
+                },
+                error: function (response) {
+                    $.notify("Erica nomination list not uploaded", "warn");
+                }
+            });
+        },
+
         selectFile: function () {
             $("#img_text").html($('input[type="file"]').val());
+        },
+
+        processTemplate: function (e) {
+            window.location = "EricaNomineeList.html?ericaid=" + e.target.id + "";
         },
 
         // Backbone View events ...
 
         events: {
             "click #uploadbtn": "doUpload",
-            "change input[type='file']": "selectFile"
+            "change input[type='file']": "selectFile",
+            "click .btn-process": "processTemplate"
+        },
+
+        render: function () {
+            this.getHistory();
         }
 
     });

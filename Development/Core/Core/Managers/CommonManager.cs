@@ -5,10 +5,12 @@ using System.Data;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Web;
 using Development.Core.Common.ApiDtos;
 using Development.Core.Core.Interface;
+using Development.Core.Core.Managers.Proxy;
 using Development.Core.Interface;
-using Development.Core.Managers.Proxy;
+using Development.Core.Utility;
 using Development.Dal.Common.Model;
 using Development.Dal.Error.Model;
 using Newtonsoft.Json;
@@ -86,31 +88,29 @@ namespace Development.Core.Core.Managers {
 
         #endregion
 
-        #region Availability Search
+        #region Save Erica nomination settings
 
-        public int SaveEricaConfiguration(CommonManagerProxy proxy, EricaDto dto)
-        {
-            try
-            {
-                EricaNomineeDao dao = new EricaNomineeDao
-                {
+        public List<EricaNomineeDao> SaveEricaConfiguration(CommonManagerProxy proxy, EricaDto dto) {
+            try {
+                List<EricaNomineeDao> lst;
+                EricaNomineeDao dao = new EricaNomineeDao {
                     AwardDate = dto.AwardDate,
                     Office = dto.Office,
                     Quarter = dto.Quarter,
                     SourceFileName = dto.SourceFileName,
-                    Subject = dto.Subject
+                    Subject = dto.Subject,
+                    DateCreated = DateTime.Now
                 };
-                using (ITransaction tx = proxy.DevelopmentManager.GetTransaction())
-                {
+                using (ITransaction tx = proxy.DevelopmentManager.GetTransaction()) {
                     tx.PersistenceManager.UserRepository.Save(dao);
                     tx.Commit();
+                    ProcessEricaExcel(proxy, dao);
+                    lst = tx.PersistenceManager.UserRepository.GetAll<EricaNomineeDao>().ToList();
                 }
-                return dao.Id;
-            }
-            catch (Exception ex)
-            {
+                return lst;
+            } catch (Exception ex) {
                 LogError(proxy, ex);
-                return 0;
+                return null;
             }
         }
 
@@ -118,11 +118,16 @@ namespace Development.Core.Core.Managers {
 
         #region
 
-        public bool ProcessEricaExcel(CommonManagerProxy proxy, SearchRequest request, bool firstRowHasFieldNames) {
+        public bool ProcessEricaExcel(CommonManagerProxy proxy, EricaNomineeDao request) {
 
-            string excelFileName = @"D:\Company-Projects\BulkEmailer\Development\Presentation\Copy-of-2017-Q2-GALE-BLR-Erica-Awards-(Responses).xlsx";
+
+            var baseBath = ConfigurationManager.AppSettings["AppContent"];
+            var excelFileName = baseBath + @"EricaTemplates\" + request.SourceFileName;
+
+            // string excelFileName = @"D:\Company-Projects\BulkEmailer\Development\Presentation\Copy-of-2017-Q2-GALE-BLR-Erica-Awards-(Responses).xlsx";
 
             var infile = new FileInfo(excelFileName);
+            IList<EricaNomineeListDao> nomineeList = new List<EricaNomineeListDao>();
             using (var exp = new ExcelPackage(infile)) {
                 if (exp.Workbook.Worksheets.Count > 0) {
                     var ws = exp.Workbook.Worksheets.First();
@@ -131,18 +136,11 @@ namespace Development.Core.Core.Managers {
 
                     var fieldNames = new Dictionary<int, string>();
                     var firstRow = start.Row;
-                    if (firstRowHasFieldNames) {
-                        for (var x = start.Column; x <= end.Column; x++) {
-                            fieldNames.Add(x, GetCellStringValue(ws, x, start.Row));
-                        }
-                        firstRow++;
-                    } else {
-                        for (var x = start.Column; x <= end.Column; x++) {
-                            fieldNames.Add(x, $"Column_{x}");
-                        }
+                    for (var x = start.Column; x <= end.Column; x++) {
+                        fieldNames.Add(x, GetCellStringValue(ws, x, start.Row));
                     }
+                    firstRow++;
                     var nominationList = TransformtoEricaNomineeList(ws, start, end, fieldNames, firstRow);
-
                     var groupedNominationList = nominationList
                         .OrderBy(nm => nm.NomineeEmail)
                         .ThenBy(nm => nm.NominatorEmail)
@@ -156,9 +154,28 @@ namespace Development.Core.Core.Managers {
                                 nm =>
                                     $"{Environment.NewLine}From {nm.NominatorEmail}: {Environment.NewLine} {Environment.NewLine}{nm.Message}{Environment.NewLine}")
                             );
+                        var nomineeDto = nominee.FirstOrDefault();
+                        if (nomineeDto != null)
+                            nomineeList.Add(new EricaNomineeListDao {
+                                AwardName = string.Join(", ", nominee.Select(a => a.AwardName).ToArray()),
+                                EricaId = request.Id,
+                                Message = EmailMessagehelper.GetEmailBodyMessage(nominee),
+                                NominatorEmailList =
+                                    string.Join(", ", nominee.Select(a => a.NominatorEmail).ToArray()),
+                                NomineeEmail = nomineeDto.NomineeEmail,
+                                NomineeName = nomineeDto.NomineeName,
+                                Status = "In progress"
+                            });
                     }
+                    using (ITransaction tx = proxy.DevelopmentManager.GetTransaction()) {
 
-                    return true;
+                        if (nomineeList.Any()) {
+                            tx.PersistenceManager.UserRepository.Save(nomineeList);
+                            tx.Commit();
+                        }
+
+                        return true;
+                    }
                 }
                 return false;
             }
@@ -197,6 +214,51 @@ namespace Development.Core.Core.Managers {
         }
 
         #endregion
+
+
+        public List<EricaNomineeDao> GetEricaTemplates(CommonManagerProxy proxy) {
+            try {
+                List<EricaNomineeDao> lst;
+                using (ITransaction tx = proxy.DevelopmentManager.GetTransaction()) {
+                    lst = tx.PersistenceManager.UserRepository.GetAll<EricaNomineeDao>().ToList();
+                }
+                return lst;
+            } catch (Exception ex) {
+                LogError(proxy, ex);
+                return null;
+            }
+        }
+
+        public List<EricaNomineeListDao> GetEricaNomineeList(CommonManagerProxy proxy, int ericaId) {
+            try {
+                List<EricaNomineeListDao> lst;
+                using (ITransaction tx = proxy.DevelopmentManager.GetTransaction()) {
+                    lst =
+                        tx.PersistenceManager.UserRepository.GetAll<EricaNomineeListDao>()
+                            .Where(e => e.EricaId == ericaId)
+                            .ToList();
+                }
+                return lst;
+            } catch (Exception ex) {
+                LogError(proxy, ex);
+                return null;
+            }
+        }
+
+        public EricaNomineeListDao GetEricaNominatorMessage(CommonManagerProxy proxy, int nominationId) {
+            try {
+                EricaNomineeListDao dao;
+                using (ITransaction tx = proxy.DevelopmentManager.GetTransaction()) {
+                    dao =
+                        tx.PersistenceManager.UserRepository
+                            .GetAll<EricaNomineeListDao>().FirstOrDefault(e => e.Id == nominationId);
+                }
+                return dao;
+            } catch (Exception ex) {
+                LogError(proxy, ex);
+                return null;
+            }
+        }
 
 
 

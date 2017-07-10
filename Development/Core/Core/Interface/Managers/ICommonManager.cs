@@ -1,4 +1,6 @@
 ﻿using Development.Core.Common.ApiDtos;
+using Development.Dal.Common.Model;
+using System.Collections.Generic;
 
 namespace Development.Core.Core.Interface.Managers {
     public interface ICommonManager {
@@ -12,11 +14,17 @@ namespace Development.Core.Core.Interface.Managers {
 
         #region Methods
 
-        SearchResponse AvailabilitySearch(SearchRequest request);
+        List<EricaNomineeDao> SaveEricaConfiguration(EricaDto request);
 
-        bool ProcessEricaExcel(SearchRequest request, bool firstRowHasFieldNames);
+        bool ProcessEricaExcel(EricaNomineeDao reques);
+
+        List<EricaNomineeDao> GetEricaTemplates();
 
         #endregion
+
+        List<EricaNomineeListDao> GetEricaNomineeList(int ericaId);
+
+        EricaNomineeListDao GetEricaNominatorMessage(int nominationId);
 
     }
 }

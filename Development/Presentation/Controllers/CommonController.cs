@@ -24,87 +24,95 @@ namespace Development.Web.Controllers {
         private ServiceResponse _result;
 
         [HttpPost]
-        [Route("SearchAvailabilty")]
-        public ServiceResponse SearchAvailabilty(SearchRequestDto dto) {
-            _result = new ServiceResponse();
-            try {
-                if (ModelState.IsValid) {
-                    Guid systemSession = DevelopmentManagerFactory.GetSystemSession();
-                    IDevelopmentManager developmentManager = DevelopmentManagerFactory.GetDevelopmentManager(systemSession);
-                    _result.StatusCode = (int)HttpStatusCode.OK;
-                    SearchRequest request = new SearchRequest {
-                        LoginDetails = new SearchRequestLoginDetails {
-                            Login = ConfigurationManager.AppSettings["APIUser"],
-                            Password = ConfigurationManager.AppSettings["APIPassword"]
-                        },
-                        SearchDetails = new SearchRequestSearchDetails {
-                            ArrivalDate = Convert.ToDateTime(dto.ArrivalDate),
-                            Duration = dto.Duration,
-                            MealBasisID = 0,
-                            MinStarRating = dto.MinStarRating,
-                            //TODO: comment this if we go for property search
-                            //RegionID = 72, // TODO: need to get all their region list 
-                            PropertyReferenceIDs = new PropertyReferenceIDs {
-                                PropertyReferenceID = new int[] { 68851 } //Leopold Hotel Brussels
-                            },
-                            RoomRequests = new SearchRequestSearchDetailsRoomRequests {
-                                RoomRequest = new SearchRequestSearchDetailsRoomRequestsRoomRequest {
-                                    Adults = dto.Adults,
-                                    Children = dto.Children,
-                                    Infants = dto.Infants
-                                }
-                            }
-                        }
-                    };
-                    _result.Response = developmentManager.CommonManager.AvailabilitySearch(request);
-                } else {
-                    _result.StatusCode = (int)HttpStatusCode.BadRequest;
-                    _result.Response = null;
-                }
-            } catch {
-                _result.StatusCode = (int)HttpStatusCode.MethodNotAllowed;
-                _result.Response = null;
-            }
-            return _result;
-        }
-
-        [HttpPost]
         [Route("UploadEricaTemplateWithData")]
         public ServiceResponse UploadEricaTemplateWithData() {
             _result = new ServiceResponse();
             try {
                 // get variables first
                 var nvc = HttpContext.Current.Request.Form;
-                var model = new ErricaModel();
+                var request = new EricaDto();
                 // iterate through and map to strongly typed model
                 foreach (var kvp in nvc.AllKeys) {
-                    var pi = model.GetType().GetProperty(kvp, BindingFlags.Public | BindingFlags.Instance);
+                    var pi = request.GetType().GetProperty(kvp, BindingFlags.Public | BindingFlags.Instance);
                     int i;
-                    DateTime j;
                     if (int.TryParse(nvc[kvp], out i)) {
-                        pi?.SetValue(model, i, null);
-                    } else if (DateTime.TryParse(nvc[kvp], out j)) {
-                        pi?.SetValue(model, j, null);
+                        pi?.SetValue(request, i, null);
                     } else {
-                        pi?.SetValue(model, nvc[kvp], null);
+                        pi?.SetValue(request, nvc[kvp], null);
                     }
 
                 }
-                var fileName = UIhelper.GenerateUniqueId() +
-                                  "_" + model.SourceFile.FileName;
-                model.SourceFile = HttpContext.Current.Request.Files["SourceFile"];
+                request.SourceFile = HttpContext.Current.Request.Files["SourceFile"];
+                if (request.SourceFile != null) {
+                    var fileName = UIhelper.GenerateUniqueId() +
+                                   "_" + request.SourceFile.FileName;
 
-                if (model.SourceFile != null) {
-                    var baseBath = ConfigurationManager.AppSettings["AppContent"];
-                    var filePath =
-                        HttpContext.Current.Server.MapPath(baseBath + @"EricaTemplates\" + fileName);
-                    model.SourceFile.SaveAs(filePath);
+                    if (request.SourceFile != null) {
+                        var baseBath = ConfigurationManager.AppSettings["AppContent"];
+                        var filePath = baseBath + @"EricaTemplates\" + fileName;
+                        request.SourceFile.SaveAs(filePath);
+                    }
+
+                    request.SourceFileName = fileName;
                 }
 
-
-                _result = new ServiceResponse { StatusCode = (int)HttpStatusCode.OK, Response = 1 };
+                Guid systemSession = DevelopmentManagerFactory.GetSystemSession();
+                IDevelopmentManager developmentManager = DevelopmentManagerFactory.GetDevelopmentManager(systemSession);
+                _result.StatusCode = (int)HttpStatusCode.OK;
+                _result.Response = developmentManager.CommonManager.SaveEricaConfiguration(request);
             } catch (Exception ex) {
                 _result.StatusCode = (int)HttpStatusCode.MethodNotAllowed;
+                _result.Response = null;
+            }
+            return _result;
+        }
+
+        [HttpGet]
+        [Route("GetHistory")]
+        public ServiceResponse GetHistory() {
+            _result = new ServiceResponse();
+            try {
+
+                Guid systemSession = DevelopmentManagerFactory.GetSystemSession();
+                IDevelopmentManager developmentManager = DevelopmentManagerFactory.GetDevelopmentManager(systemSession);
+                _result.StatusCode = (int)HttpStatusCode.OK;
+                _result.Response = developmentManager.CommonManager.GetEricaTemplates();
+            } catch {
+                _result.StatusCode = (int)HttpStatusCode.InternalServerError;
+                _result.Response = null;
+            }
+            return _result;
+        }
+
+        [HttpGet]
+        [Route("GetEricaNomineeList/{ericaID}")]
+        public ServiceResponse GetEricaNomineeList(int ericaId) {
+            _result = new ServiceResponse();
+            try {
+
+                Guid systemSession = DevelopmentManagerFactory.GetSystemSession();
+                IDevelopmentManager developmentManager = DevelopmentManagerFactory.GetDevelopmentManager(systemSession);
+                _result.StatusCode = (int)HttpStatusCode.OK;
+                _result.Response = developmentManager.CommonManager.GetEricaNomineeList(ericaId);
+            } catch {
+                _result.StatusCode = (int)HttpStatusCode.InternalServerError;
+                _result.Response = null;
+            }
+            return _result;
+        }
+
+        [HttpGet]
+        [Route("GetEricaNominatorMessage/{nominationID}")]
+        public ServiceResponse GetEricaNominatorMessage(int nominationId) {
+            _result = new ServiceResponse();
+            try {
+
+                Guid systemSession = DevelopmentManagerFactory.GetSystemSession();
+                IDevelopmentManager developmentManager = DevelopmentManagerFactory.GetDevelopmentManager(systemSession);
+                _result.StatusCode = (int)HttpStatusCode.OK;
+                _result.Response = developmentManager.CommonManager.GetEricaNominatorMessage(nominationId);
+            } catch {
+                _result.StatusCode = (int)HttpStatusCode.InternalServerError;
                 _result.Response = null;
             }
             return _result;

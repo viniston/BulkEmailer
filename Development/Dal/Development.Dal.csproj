@@ -63,6 +63,7 @@
     <Compile Include="Base\MultiProperty.cs" />
     <Compile Include="Base\PersistenceManager.cs" />
     <Compile Include="Common\CommonRepository.cs" />
+    <Compile Include="Common\Model\EricaNomineeListDao.cs" />
     <Compile Include="Common\Model\EricaNomineeDao.cs" />
     <Compile Include="Common\StationCode.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -73,6 +74,9 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Common\Mapping\EricaNominee.hbm.xml">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Common\Mapping\EricaNomineeList.hbm.xml">
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <Content Include="README.txt" />

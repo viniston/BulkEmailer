@@ -10,7 +10,7 @@ namespace Development.Dal.Common.Model {
         public virtual int Quarter { get; set; }
         public virtual int Office { get; set; }
         public virtual string Subject { get; set; }
-        public virtual DateTime AwardDate { get; set; }
+        public virtual string AwardDate { get; set; }
         public virtual string SourceFileName { get; set; }
         public virtual DateTime? DateCreated { get; set; }
     }

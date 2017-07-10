@@ -1,23 +1,20 @@
-﻿using Development.Core.Interface.Managers;
-using Development.Core.Interface;
+﻿using System.Collections.Generic;
 using Development.Core.Common.ApiDtos;
 using Development.Core.Core.Interface.Managers;
-using Development.Core.Core.Managers;
+using Development.Core.Interface;
+using Development.Dal.Common.Model;
 
-namespace Development.Core.Managers.Proxy
-{
-    internal partial class CommonManagerProxy : ICommonManager, IManagerProxy
-    {
+namespace Development.Core.Core.Managers.Proxy {
+    internal partial class CommonManagerProxy : ICommonManager, IManagerProxy {
         // Reference to the DevelopmentManager
-        private DevelopmentManager _DevelopmentManager = null;
+        private readonly DevelopmentManager _developmentManager = null;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="CommonManagerProxy"/> class.
         /// </summary>
-        /// <param name="DevelopmentManager">The Development manager.</param>
-        internal CommonManagerProxy(DevelopmentManager DevelopmentManager)
-        {
-            _DevelopmentManager = DevelopmentManager;
+        /// <param name="developmentManager">The Development manager.</param>
+        internal CommonManagerProxy(DevelopmentManager developmentManager) {
+            _developmentManager = developmentManager;
 
             // Do some initialization.... 
             // i.e. cache logged in user specific things (or maybe use lazy loading for that)
@@ -30,25 +27,32 @@ namespace Development.Core.Managers.Proxy
         /// <value>
         /// The Development manager.
         /// </value>
-        internal DevelopmentManager DevelopmentManager
-        {
-            get { return _DevelopmentManager; }
+        internal DevelopmentManager DevelopmentManager {
+            get { return _developmentManager; }
         }
 
         #region Availabilty Search
 
-        public SearchResponse AvailabilitySearch(SearchRequest request)
-        {
-            return CommonManager.Instance.AvailabilitySearch(this, request);
+        public List<EricaNomineeDao> SaveEricaConfiguration(EricaDto request) {
+            return CommonManager.Instance.SaveEricaConfiguration(this, request);
         }
         #endregion
 
-        public bool ProcessEricaExcel(SearchRequest request, bool firstRowHasFieldNames)
-        {
-            return CommonManager.Instance.ProcessEricaExcel(this, request, firstRowHasFieldNames);
+        public bool ProcessEricaExcel(EricaNomineeDao request) {
+            return CommonManager.Instance.ProcessEricaExcel(this, request);
         }
 
+        public List<EricaNomineeDao> GetEricaTemplates() {
+            return CommonManager.Instance.GetEricaTemplates(this);
+        }
 
+        public List<EricaNomineeListDao> GetEricaNomineeList(int ericaId) {
+            return CommonManager.Instance.GetEricaNomineeList(this, ericaId);
+        }
+
+        public EricaNomineeListDao GetEricaNominatorMessage(int nominationId) {
+            return CommonManager.Instance.GetEricaNominatorMessage(this, nominationId);
+        }
 
 
     }

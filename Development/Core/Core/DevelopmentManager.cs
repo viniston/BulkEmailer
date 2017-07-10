@@ -6,10 +6,10 @@ using Development.Core.Interface;
 using Development.Core.Interface.Managers;
 using Development.Core.User.Interface;
 using System.Threading;
-using Development.Core.Managers.Proxy;
 using System.Collections;
 using Development.Core.Core.Interface;
 using Development.Core.Core.Interface.Managers;
+using Development.Core.Core.Managers.Proxy;
 
 namespace Development.Core
 {
