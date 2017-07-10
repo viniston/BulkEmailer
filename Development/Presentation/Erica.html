@@ -1,0 +1,182 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="" />
+    <meta name="author" content="BrandSystems" />
+    <link href="bower_components/assets/css/mui.css" rel="stylesheet" />
+    <link href="bower_components/assets/css/mui-responsive.css" rel="stylesheet" />
+    <link href="bower_components/assets/css/font-awesome.css" rel="stylesheet" />
+    <link href="bower_components/assets/css/bootstrap-datepicker.css" rel="stylesheet" />
+    <link href="bower_components/assets/css/select2.css" rel="stylesheet" />
+    <link href="bower_components/assets/css/qtip2.css" rel="stylesheet" />
+    <link href="bower_components/assets/css/bootstrap-notify.css" rel="stylesheet" />
+</head>
+<body class="UR">
+    <style type="text/css">
+        .file-input-wrapper {
+            height: 30px;
+            margin: 2px;
+            overflow: hidden;
+            position: relative;
+            width: 118px;
+            background-color: #fff;
+            cursor: pointer;
+        }
+
+            .file-input-wrapper > input[type="file"] {
+                font-size: 40px;
+                position: absolute;
+                top: 0;
+                right: 0;
+                opacity: 0;
+                cursor: pointer;
+            }
+
+            .file-input-wrapper > .btn-file-input {
+                background-color: #494949;
+                border-radius: 4px;
+                color: #fff;
+                display: inline-block;
+                height: 34px;
+                margin: 0 0 0 -1px;
+                padding-left: 0;
+                width: 121px;
+                cursor: pointer;
+            }
+    </style>
+
+    <div class="notifications top-right"></div>
+    <div class="bulkemailer">
+        <div class="contentBlock">
+            <div title="" class="header bsiLogo">
+                <img id="loginpageTitle" onclick="window.location = 'Erica.html'; return false;" src="img/GALE_LOGO.png" alt="Logo" />
+            </div>
+            <div id="Reg" class="box box-noborder">
+                <div class="box-header">
+                    <h3>Gale Creative Agency Bulk Emalier v1.0</h3>
+                    <p>Please fill use form for sending Erica normination mails.</p>
+                    <div class="information">
+                        <span>
+                            <i class="icon-asterisk"></i>
+                            <span>Mandatory Fields</span>
+                        </span>
+                    </div>
+                </div>
+                <div class="box-content" id="maincontainer">
+                    <div class="box-content-margin">
+                        <form id="RegMetadata" class="form-float">
+                            <div class="span12">
+                                <h4 class="blockTitle">Basic Information</h4>
+                                <div id="staticControls">
+                                    <div class="control-group">
+                                        <label class="control-label" for="quarter">Quarter <i class="icon-asterisk mandatory-sign"></i></label>
+                                        <div class="controls">
+                                            <select class="longbox" name="Quarter" ui-select2 id="quarter">
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="control-group">
+                                        <label class="control-label" for="office">Office <i class="icon-asterisk mandatory-sign"></i></label>
+                                        <div class="controls">
+                                            <select class="longbox" name="Office" ui-select2 id="office">
+                                                <option value="1">Bangalore</option>
+                                                <option value="2">New York City</option>
+                                                <option value="3">Toronto</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="control-group">
+                                        <label class="control-label" for="awardDate">Event date <i class="icon-asterisk mandatory-sign"></i></label>
+                                        <div class="controls">
+                                            <input type="text" class="data-picker" name="AwardDate" id="awardDate" placeholder="Date" autocomplete="off" />
+                                        </div>
+                                    </div>
+
+                                    <div class="control-group">
+                                        <label class="control-label" for="mailsubject">Subject <i class="icon-asterisk mandatory-sign"></i></label>
+                                        <div class="controls">
+                                            <input type="text" name="Subject" id="mailsubject" placeholder="Mail subject" autocomplete="off" />
+                                        </div>
+                                    </div>
+                                    <div class="control-group">
+                                        <label class="control-label" for="sourcefile">Upload Excel <i title="Please download the template. Fill it and upload the same" class="icon-info-sign signInfo"></i></label>
+
+                                        <div class="file-input-wrapper">
+                                            <button class="btn btn-small btn-primary">Select file</button>
+                                            <input accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel" name="sourcefile" id="sourcefile" type="file" value=""/>
+                                        </div>
+                                        <span id="img_text" style="padding-left: 4px;"></span>
+
+                                    </div>
+
+
+                                    <div class="control-group">
+                                        <label class="control-label">Download template</label>
+                                        <div class="controls">
+                                            <a href="#">Erica template</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="span12" id="historyDiv">
+                                <h4 class="blockTitle">History</h4>
+                                <div class="historical-wrapper">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th>Quarter</th>
+                                                <th>Event Date</th>
+                                                <th>Subject</th>
+                                                <th>From mail</th>
+                                                <th>Sender name</th>
+                                                <th>Office</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="tbdyHistory"></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="saving" id="showhideprogress" style="display: none">
+                        <div class="InProgress">
+                            <img src="bower_components/assets/img/loading.gif" />
+                            <span>Saving...</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="box-footer">
+                    <div class="pull-right buttongroup">
+                        <input id="Back" class="btn btn-small" onclick="window.location = 'Erica.html'; return false;" value="Reset" />
+                        <input id="uploadbtn" class="btn btn-medium btn-primary" value="Upload" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="bower_components/assets/js/Jquery/jquery-2.0.3.min.js"></script>
+    <script src="bower_components/assets/js/Bootstrap/DatePicker/bootstrap-datepicker.js"></script>
+    <script src="bower_components/assets/js/Bootstrap/plugin.min.js"></script>
+    <script src="bower_components/assets/js/UtilityFramework/bootbox.js"></script>
+    <script src="bower_components/assets/js/Bootstrap/bootstrap-notify.min.js"></script>
+    <script src="bower_components/assets/js/UtilityFramework/jquery.qtip.js"></script>
+    <script src="bower_components/assets/js/Select2/select2.js"></script>
+    <script src="bower_components/assets/js/libs/underscore.js"></script>
+    <script src="bower_components/assets/js/libs/backbone.js"></script>
+    <script src="bower_components/assets/js/libs/mustache.min.js"></script>
+    <script src="bower_components/assets/js/UtilityFramework/moment.min.js"></script>
+    <script src="bower_components/app/app.js"></script>
+
+
+</body>
+</html>

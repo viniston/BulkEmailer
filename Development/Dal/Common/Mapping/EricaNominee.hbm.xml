@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2">
+  <class name="Development.Dal.Common.Model.EricaNomineeDao,Development.Dal" table="EricaNominee" lazy="true">
+    <id name="Id" column="ID" type="int">
+      <generator class="native"/>
+    </id>
+    <property type="int"  name="Quarter" column="Quarter"/>
+    <property type="int"  name="Office" column="Office"/>
+    <property type="string"  name="Subject" column="Subject"/>
+    <property type="string"  name="SourceFileName" column="SourceFileName"/>
+    <property type="DateTime" name="AwardDate" column="AwardDate"/>
+    <property type="DateTime"  name="DateCreated" column="DateCreated"/>
+  </class>
+</hibernate-mapping>
