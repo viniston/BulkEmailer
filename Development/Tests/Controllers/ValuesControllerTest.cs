@@ -21,14 +21,5 @@ namespace Development.Tests.Controllers {
             //intialize all Development tenants and NHibernate mappings and all
             DevelopmentManagerFactory.InitializeSystem();
         }
-
-        [TestMethod]
-        public void TestExcelProcessing() {
-            InitializeAllDevelopmentInstances();
-            var systemSession = DevelopmentManagerFactory.GetSystemSession();
-            var developmentManager = DevelopmentManagerFactory.GetDevelopmentManager(systemSession);
-            var response = developmentManager.CommonManager.ProcessEricaExcel(new SearchRequest(), true);
-        }
-
     }
 }
