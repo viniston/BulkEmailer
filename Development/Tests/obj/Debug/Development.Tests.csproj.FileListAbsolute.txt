@@ -146,3 +146,4 @@ D:\Company-Projects\BulkEmailer\Development\Tests\bin\Debug\zh-Hans\System.Spati
 D:\Company-Projects\BulkEmailer\Development\Tests\bin\Debug\zh-Hant\System.Spatial.resources.dll
 D:\Company-Projects\BulkEmailer\Development\Tests\obj\Debug\Development.Tests.dll
 D:\Company-Projects\BulkEmailer\Development\Tests\obj\Debug\Development.Tests.pdb
+D:\Company-Projects\BulkEmailer\Development\Tests\bin\Debug\EASendMail45.dll

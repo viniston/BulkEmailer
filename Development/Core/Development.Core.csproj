@@ -41,6 +41,10 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EASendMail45, Version=7.3.1.2, Culture=neutral, PublicKeyToken=88adb80ecd66540b, processorArchitecture=MSIL">
+      <HintPath>..\packages\EASendMail.7.3.1.2\lib\net45\EASendMail45.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="EPPlus, Version=4.1.0.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
       <HintPath>..\packages\EPPlus.4.1.0\lib\net40\EPPlus.dll</HintPath>
       <Private>True</Private>
@@ -89,6 +93,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ApiWorker.cs" />
+    <Compile Include="Common\ApiDtos\EmailDto.cs" />
     <Compile Include="Common\ApiDtos\EricaDto.cs" />
     <Compile Include="Common\ApiDtos\EricaNominee.cs" />
     <Compile Include="Common\ApiDtos\SearchRequest.cs" />

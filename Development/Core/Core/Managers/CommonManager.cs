@@ -13,6 +13,7 @@ using Development.Core.Interface;
 using Development.Core.Utility;
 using Development.Dal.Common.Model;
 using Development.Dal.Error.Model;
+using EASendMail;
 using Newtonsoft.Json;
 using NHibernate.Hql.Classic;
 using OfficeOpenXml;
@@ -155,7 +156,7 @@ namespace Development.Core.Core.Managers {
                                     $"{Environment.NewLine}From {nm.NominatorEmail}: {Environment.NewLine} {Environment.NewLine}{nm.Message}{Environment.NewLine}")
                             );
                         var nomineeDto = nominee.FirstOrDefault();
-                        if (nomineeDto != null)
+                        if (!string.IsNullOrEmpty(nomineeDto?.NomineeEmail))
                             nomineeList.Add(new EricaNomineeListDao {
                                 AwardName = string.Join(", ", nominee.Select(a => a.AwardName).ToArray()),
                                 EricaId = request.Id,
@@ -260,6 +261,66 @@ namespace Development.Core.Core.Managers {
             }
         }
 
+
+        public bool SendEmail(CommonManagerProxy proxy, EmailDto dto) {
+
+            try {
+
+                using (ITransaction tx = proxy.DevelopmentManager.GetTransaction()) {
+                    var nominationDao =
+                        tx.PersistenceManager.UserRepository
+                            .GetAll<EricaNomineeListDao>().FirstOrDefault(e => e.Id == dto.NominationId);
+
+                    var ericaDao =
+                        tx.PersistenceManager.UserRepository
+                            .GetAll<EricaNomineeDao>()
+                            .FirstOrDefault(e => nominationDao != null && e.Id == nominationDao.EricaId);
+                    if (nominationDao != null && ericaDao != null) {
+
+                        SmtpMail oMail = new SmtpMail("TryIt");
+                        SmtpClient oSmtp = new SmtpClient();
+
+                        // Your Offic 365 email address
+                        oMail.From = ConfigurationManager.AppSettings["ericaMail"];
+
+                        // Set recipient email address
+                        oMail.To = nominationDao.NomineeEmail;
+
+                        // Set email subject
+                        oMail.Subject = ericaDao.Subject;
+
+                        //Local File
+                        var htmlCode = EmailMessagehelper.GetHtmlMailBody(dto.MailBody);
+
+                        oMail.HtmlBody = htmlCode;
+
+                        // Your Office 365 SMTP server address,
+                        // You should get it from outlook web access.
+                        SmtpServer oServer = new SmtpServer("smtp.office365.com") {
+                            User = ConfigurationManager.AppSettings["senderMail"],
+                            Password = ConfigurationManager.AppSettings["senderPwd"],
+                            Port = 587,
+                            ConnectType = SmtpConnectType.ConnectSSLAuto
+                        };
+                        try {
+                            oSmtp.SendMail(oServer, oMail);
+
+                            nominationDao.Status = "Mail Sent";
+                            tx.PersistenceManager.UserRepository.Save(nominationDao);
+
+
+                            return true;
+                        } catch (Exception ep) {
+                            return false;
+                        }
+                    }
+                    tx.Commit();
+                    return false;
+                }
+            } catch (Exception ex) {
+                return false;
+            }
+        }
 
 
     }

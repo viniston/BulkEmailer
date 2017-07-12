@@ -447,6 +447,27 @@
     <Content Include="bower_components\assets\js\Jquery\Plugin\jquery.tablednd.js" />
     <Content Include="bower_components\assets\js\Jquery\Plugin\jquery.tipTip.js" />
     <Content Include="bower_components\assets\js\Jquery\Plugin\jquery.tipTip.minified.js" />
+    <Content Include="bower_components\assets\js\Jquery\skins\moono-lisa\dialog.css" />
+    <Content Include="bower_components\assets\js\Jquery\skins\moono-lisa\dialog_ie.css" />
+    <Content Include="bower_components\assets\js\Jquery\skins\moono-lisa\dialog_ie8.css" />
+    <Content Include="bower_components\assets\js\Jquery\skins\moono-lisa\dialog_iequirks.css" />
+    <Content Include="bower_components\assets\js\Jquery\skins\moono-lisa\editor.css" />
+    <Content Include="bower_components\assets\js\Jquery\skins\moono-lisa\editor_gecko.css" />
+    <Content Include="bower_components\assets\js\Jquery\skins\moono-lisa\editor_ie.css" />
+    <Content Include="bower_components\assets\js\Jquery\skins\moono-lisa\editor_ie8.css" />
+    <Content Include="bower_components\assets\js\Jquery\skins\moono-lisa\editor_iequirks.css" />
+    <Content Include="bower_components\assets\js\Jquery\skins\moono-lisa\icons.png" />
+    <Content Include="bower_components\assets\js\Jquery\skins\moono-lisa\icons_hidpi.png" />
+    <Content Include="bower_components\assets\js\Jquery\skins\moono-lisa\images\arrow.png" />
+    <Content Include="bower_components\assets\js\Jquery\skins\moono-lisa\images\close.png" />
+    <Content Include="bower_components\assets\js\Jquery\skins\moono-lisa\images\hidpi\close.png" />
+    <Content Include="bower_components\assets\js\Jquery\skins\moono-lisa\images\hidpi\lock-open.png" />
+    <Content Include="bower_components\assets\js\Jquery\skins\moono-lisa\images\hidpi\lock.png" />
+    <Content Include="bower_components\assets\js\Jquery\skins\moono-lisa\images\hidpi\refresh.png" />
+    <Content Include="bower_components\assets\js\Jquery\skins\moono-lisa\images\lock-open.png" />
+    <Content Include="bower_components\assets\js\Jquery\skins\moono-lisa\images\lock.png" />
+    <Content Include="bower_components\assets\js\Jquery\skins\moono-lisa\images\refresh.png" />
+    <Content Include="bower_components\assets\js\Jquery\skins\moono-lisa\images\spinner.gif" />
     <Content Include="bower_components\assets\js\Jquery\styles.js" />
     <Content Include="bower_components\assets\js\libs\backbone.js" />
     <Content Include="bower_components\assets\js\libs\mustache.min.js" />
@@ -482,6 +503,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helper\UIhelper.cs" />
+    <Compile Include="Models\EmailModel.cs" />
     <Compile Include="Models\EricaModel.cs" />
     <Compile Include="Models\SearchRequestDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -505,6 +527,7 @@
     <Content Include="bower_components\assets\js\Jquery\plugins\scayt\README.md" />
     <Content Include="bower_components\assets\js\Jquery\plugins\wsc\LICENSE.md" />
     <Content Include="bower_components\assets\js\Jquery\plugins\wsc\README.md" />
+    <Content Include="bower_components\assets\js\Jquery\skins\moono-lisa\readme.md" />
     <None Include="Properties\PublishProfiles\BulkEmailer.pubxml" />
     <None Include="Properties\PublishProfiles\DevelopmentBase.pubxml" />
     <None Include="Properties\PublishProfiles\GALETEST.pubxml" />
@@ -520,7 +543,6 @@
     <Folder Include="App_Data\Uploadfiles\" />
     <Folder Include="App_Readme\" />
     <Folder Include="bower_components\assets\img\Temp\" />
-    <Folder Include="bower_components\assets\js\Jquery\skins\" />
     <Folder Include="bower_components\assets\js\plugins\" />
     <Folder Include="css\" />
   </ItemGroup>

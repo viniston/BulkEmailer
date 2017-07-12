@@ -54,6 +54,10 @@ namespace Development.Core.Core.Managers.Proxy {
             return CommonManager.Instance.GetEricaNominatorMessage(this, nominationId);
         }
 
+        public bool SendEmail(EmailDto dto) {
+            return CommonManager.Instance.SendEmail(this, dto);
+        }
+
 
     }
 

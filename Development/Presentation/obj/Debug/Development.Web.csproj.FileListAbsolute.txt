@@ -56,3 +56,4 @@ D:\Company-Projects\BulkEmailer\Development\Presentation\bin\EPPlus.xml
 D:\Company-Projects\BulkEmailer\Development\Presentation\bin\log4net.xml
 D:\Company-Projects\BulkEmailer\Development\Presentation\obj\Debug\Development.Web.dll
 D:\Company-Projects\BulkEmailer\Development\Presentation\obj\Debug\Development.Web.pdb
+D:\Company-Projects\BulkEmailer\Development\Presentation\bin\EASendMail45.dll

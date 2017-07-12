@@ -20,6 +20,7 @@ $(document).ready(function () {
         // Main initialization entry point...
 
         initialize: function () {
+            this.nominationId = 0;
             this.render();
         },
 
@@ -36,6 +37,7 @@ $(document).ready(function () {
 
         getMessage: function () {
             var self = this;
+            self.nominationId = self.getParameterByName('nominationid');
 
             $.ajax({
                 url: "api/Common/GetEricaNominatorMessage/" + self.getParameterByName('nominationid'),
@@ -47,6 +49,27 @@ $(document).ready(function () {
                             self.$("#nominee-email-name").html(data.Response.NomineeName);
                             self.$("#replace-message-tag").replaceWith(data.Response.Message);
                             initSample();
+                            CKEDITOR.instances["editor"].on("instanceReady",
+                                function() {
+                                    //set keyup event
+                                    this.document.on("change", CK_jQ);
+                                    this.document.on("keyup", CK_jQ);
+                                    this.document.on("paste", CK_jQ);
+                                    this.document.on("keypress", CK_jQ);
+                                    this.document.on("blur", CK_jQ);
+                                    this.document.on("change", CK_jQ);
+                                    this.document.on("mousedown", CK_jQ);
+                                    this.document.on("click", CK_jQ);
+                                    this.document.on("mouseup", CK_jQ);
+                                    this.document.on("mouseleave", CK_jQ);
+                                    
+                                    //and paste event
+                                    this.document.on("paste", CK_jQ);
+                                });
+
+                            function CK_jQ() {
+                                for (var instance in CKEDITOR.instances) { CKEDITOR.instances[instance].updateElement(); }
+                            }
                         }
                     }
                 },
@@ -56,21 +79,31 @@ $(document).ready(function () {
             });
         },
 
-        selectFile: function () {
-            $("#img_text").html($('input[type="file"]').val());
-        },
-
-        processTemplate: function (e) {
+        processEmail: function (e) {
+            var self = this;
             var editorElement = CKEDITOR.document.getById('editor');
             var message = editorElement.getHtml();
+            var inputModel = { NominationId: self.nominationId, MailBody: message };
+            $.ajax({
+                url: "api/Common/SendMail",
+                type: 'post',
+                dataType: 'json',
+                success: function (data) {
+                    $.notify("Mail sent successfully", "success");
+                },
+                error: function () {
+                    $.notify("Error occured", "warn");
+                },
+                data: inputModel
+            });
+
         },
 
         // Backbone View events ...
 
         events: {
             "click #uploadbtn": "doUpload",
-            "change input[type='file']": "selectFile",
-            "click .btn-process": "processTemplate"
+            "click .btn-process": "processEmail"
         },
 
         render: function () {

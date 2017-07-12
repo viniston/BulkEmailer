@@ -26,5 +26,7 @@ namespace Development.Core.Core.Interface.Managers {
 
         EricaNomineeListDao GetEricaNominatorMessage(int nominationId);
 
+        bool SendEmail(EmailDto dto);
+
     }
 }

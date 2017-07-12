@@ -30,3 +30,4 @@ D:\Company-Projects\BulkEmailer\Development\Core\bin\Debug\Newtonsoft.Json.xml
 D:\Company-Projects\BulkEmailer\Development\Core\bin\Debug\NHibernate.xml
 D:\Company-Projects\BulkEmailer\Development\Core\obj\Debug\Development.Core.dll
 D:\Company-Projects\BulkEmailer\Development\Core\obj\Debug\Development.Core.pdb
+D:\Company-Projects\BulkEmailer\Development\Core\bin\Debug\EASendMail45.dll

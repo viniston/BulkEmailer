@@ -28,3 +28,4 @@ D:\Company-Projects\BulkEmailer\Development\Presentation\bin\log4net.xml
 D:\Company-Projects\BulkEmailer\Development\Presentation\obj\Release\Development.Web.csprojResolveAssemblyReference.cache
 D:\Company-Projects\BulkEmailer\Development\Presentation\obj\Release\Development.Web.dll
 D:\Company-Projects\BulkEmailer\Development\Presentation\obj\Release\Development.Web.pdb
+D:\Company-Projects\BulkEmailer\Development\Presentation\bin\EASendMail45.dll

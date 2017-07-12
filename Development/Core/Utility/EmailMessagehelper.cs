@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,6 +25,15 @@ namespace Development.Core.Utility {
                 messageBlock += messageHeader;
             }
             return messageBlock;
+        }
+
+        public static string GetHtmlMailBody(string mailBodyMessage) {
+            var mailTemplatePath = ConfigurationManager.AppSettings["MailTemplate"];
+            StreamReader sr = new StreamReader(mailTemplatePath);
+            string body = sr.ReadToEnd();
+            sr.Close();
+            body = body.Replace("#MailBody#", mailBodyMessage);
+            return body;
         }
     }
 }

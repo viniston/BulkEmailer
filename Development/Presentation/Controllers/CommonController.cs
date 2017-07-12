@@ -117,5 +117,31 @@ namespace Development.Web.Controllers {
             }
             return _result;
         }
+
+        [HttpPost]
+        [Route("SendMail")]
+        public ServiceResponse SendMail(EmailModel model)
+        {
+            _result = new ServiceResponse();
+            try
+            {
+
+                Guid systemSession = DevelopmentManagerFactory.GetSystemSession();
+                IDevelopmentManager developmentManager = DevelopmentManagerFactory.GetDevelopmentManager(systemSession);
+                _result.StatusCode = (int) HttpStatusCode.OK;
+                var mailDto = new EmailDto
+                {
+                    NominationId = model.NominationId,
+                    MailBody = model.MailBody
+                };
+                _result.Response = developmentManager.CommonManager.SendEmail(mailDto);
+            }
+            catch
+            {
+                _result.StatusCode = (int) HttpStatusCode.InternalServerError;
+                _result.Response = null;
+            }
+            return _result;
+        }
     }
 }

@@ -15,3 +15,4 @@ D:\Company-Projects\BulkEmailer\Development\Core\bin\Release\NHibernate.xml
 D:\Company-Projects\BulkEmailer\Development\Core\obj\Release\Development.Core.csprojResolveAssemblyReference.cache
 D:\Company-Projects\BulkEmailer\Development\Core\obj\Release\Development.Core.dll
 D:\Company-Projects\BulkEmailer\Development\Core\obj\Release\Development.Core.pdb
+D:\Company-Projects\BulkEmailer\Development\Core\bin\Release\EASendMail45.dll

@@ -10,13 +10,16 @@ by editing this MSBuild file. In order to learn more about this please visit htt
   </PropertyGroup>
   <ItemGroup>
     <File Include="bin/Development.Core.dll">
-      <publishTime>07/10/2017 14:58:42</publishTime>
+      <publishTime>07/12/2017 11:50:20</publishTime>
     </File>
     <File Include="bin/Development.Dal.dll">
-      <publishTime>07/10/2017 14:58:40</publishTime>
+      <publishTime>07/11/2017 21:16:34</publishTime>
     </File>
     <File Include="bin/Development.Web.dll">
-      <publishTime>07/10/2017 14:58:42</publishTime>
+      <publishTime>07/12/2017 11:50:21</publishTime>
+    </File>
+    <File Include="bin/EASendMail45.dll">
+      <publishTime>07/11/2017 20:23:02</publishTime>
     </File>
     <File Include="bin/Elmah.dll">
       <publishTime>04/12/2012 19:19:36</publishTime>
@@ -67,7 +70,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/10/2017 14:19:52</publishTime>
     </File>
     <File Include="bower_components/app/sendEmail.js">
-      <publishTime>07/10/2017 14:51:38</publishTime>
+      <publishTime>07/12/2017 11:39:35</publishTime>
     </File>
     <File Include="bower_components/assets/css/bootstrap-datepicker.css">
       <publishTime>12/11/2016 18:58:05</publishTime>
@@ -1110,6 +1113,72 @@ by editing this MSBuild file. In order to learn more about this please visit htt
     <File Include="bower_components/assets/js/Jquery/plugins/wsc/skins/moono-lisa/wsc.css">
       <publishTime>07/10/2017 12:38:55</publishTime>
     </File>
+    <File Include="bower_components/assets/js/Jquery/skins/moono-lisa/dialog.css">
+      <publishTime>07/10/2017 12:40:59</publishTime>
+    </File>
+    <File Include="bower_components/assets/js/Jquery/skins/moono-lisa/dialog_ie.css">
+      <publishTime>07/10/2017 12:40:59</publishTime>
+    </File>
+    <File Include="bower_components/assets/js/Jquery/skins/moono-lisa/dialog_ie8.css">
+      <publishTime>07/10/2017 12:40:59</publishTime>
+    </File>
+    <File Include="bower_components/assets/js/Jquery/skins/moono-lisa/dialog_iequirks.css">
+      <publishTime>07/10/2017 12:40:59</publishTime>
+    </File>
+    <File Include="bower_components/assets/js/Jquery/skins/moono-lisa/editor.css">
+      <publishTime>07/10/2017 12:40:59</publishTime>
+    </File>
+    <File Include="bower_components/assets/js/Jquery/skins/moono-lisa/editor_gecko.css">
+      <publishTime>07/10/2017 12:40:59</publishTime>
+    </File>
+    <File Include="bower_components/assets/js/Jquery/skins/moono-lisa/editor_ie.css">
+      <publishTime>07/10/2017 12:40:59</publishTime>
+    </File>
+    <File Include="bower_components/assets/js/Jquery/skins/moono-lisa/editor_ie8.css">
+      <publishTime>07/10/2017 12:40:59</publishTime>
+    </File>
+    <File Include="bower_components/assets/js/Jquery/skins/moono-lisa/editor_iequirks.css">
+      <publishTime>07/10/2017 12:40:59</publishTime>
+    </File>
+    <File Include="bower_components/assets/js/Jquery/skins/moono-lisa/icons.png">
+      <publishTime>07/10/2017 12:40:59</publishTime>
+    </File>
+    <File Include="bower_components/assets/js/Jquery/skins/moono-lisa/icons_hidpi.png">
+      <publishTime>07/10/2017 12:40:59</publishTime>
+    </File>
+    <File Include="bower_components/assets/js/Jquery/skins/moono-lisa/images/arrow.png">
+      <publishTime>07/10/2017 12:40:59</publishTime>
+    </File>
+    <File Include="bower_components/assets/js/Jquery/skins/moono-lisa/images/close.png">
+      <publishTime>07/10/2017 12:40:59</publishTime>
+    </File>
+    <File Include="bower_components/assets/js/Jquery/skins/moono-lisa/images/hidpi/close.png">
+      <publishTime>07/10/2017 12:40:59</publishTime>
+    </File>
+    <File Include="bower_components/assets/js/Jquery/skins/moono-lisa/images/hidpi/lock-open.png">
+      <publishTime>07/10/2017 12:40:59</publishTime>
+    </File>
+    <File Include="bower_components/assets/js/Jquery/skins/moono-lisa/images/hidpi/lock.png">
+      <publishTime>07/10/2017 12:40:59</publishTime>
+    </File>
+    <File Include="bower_components/assets/js/Jquery/skins/moono-lisa/images/hidpi/refresh.png">
+      <publishTime>07/10/2017 12:40:59</publishTime>
+    </File>
+    <File Include="bower_components/assets/js/Jquery/skins/moono-lisa/images/lock-open.png">
+      <publishTime>07/10/2017 12:40:59</publishTime>
+    </File>
+    <File Include="bower_components/assets/js/Jquery/skins/moono-lisa/images/lock.png">
+      <publishTime>07/10/2017 12:40:59</publishTime>
+    </File>
+    <File Include="bower_components/assets/js/Jquery/skins/moono-lisa/images/refresh.png">
+      <publishTime>07/10/2017 12:40:59</publishTime>
+    </File>
+    <File Include="bower_components/assets/js/Jquery/skins/moono-lisa/images/spinner.gif">
+      <publishTime>07/10/2017 12:40:59</publishTime>
+    </File>
+    <File Include="bower_components/assets/js/Jquery/skins/moono-lisa/readme.md">
+      <publishTime>07/10/2017 12:40:59</publishTime>
+    </File>
     <File Include="bower_components/assets/js/Jquery/styles.js">
       <publishTime>07/10/2017 12:43:24</publishTime>
     </File>
@@ -1159,7 +1228,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/10/2017 14:19:36</publishTime>
     </File>
     <File Include="EricaSendMail.html">
-      <publishTime>07/10/2017 14:44:58</publishTime>
+      <publishTime>07/11/2017 21:11:45</publishTime>
     </File>
     <File Include="Global.asax">
       <publishTime>12/11/2016 18:58:05</publishTime>
@@ -1180,7 +1249,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>12/11/2016 18:58:05</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>07/10/2017 14:58:43</publishTime>
+      <publishTime>07/12/2017 11:50:22</publishTime>
     </File>
   </ItemGroup>
 </Project>
