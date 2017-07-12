@@ -202,10 +202,11 @@ namespace Development.Core.Core.Managers {
                     ericaNomineeList.Add(new EricaNominee {
                         //TODO: map the properties based on config columnn names and column number
                         NominatorEmail = GetCellStringValue(ws, row, 2),
-                        NomineeName = GetCellStringValue(ws, row, 3),
-                        NomineeEmail = GetCellStringValue(ws, row, 4),
-                        AwardName = GetCellStringValue(ws, row, 5),
-                        Message = GetCellStringValue(ws, row, 6)
+                        NominatorName = GetCellStringValue(ws, row, 3),
+                        NomineeName = GetCellStringValue(ws, row, 4),
+                        NomineeEmail = GetCellStringValue(ws, row, 5),
+                        AwardName = GetCellStringValue(ws, row, 6),
+                        Message = GetCellStringValue(ws, row, 7)
                     });
                 }
                 return ericaNomineeList;

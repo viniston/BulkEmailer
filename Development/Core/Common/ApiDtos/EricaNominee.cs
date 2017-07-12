@@ -10,6 +10,7 @@ namespace Development.Core.Common.ApiDtos {
         public string NominatorEmail { get; set; }
         public string AwardName { get; set; }
         public string NomineeName { get; set; }
+        public string NominatorName { get; set; }
         public string Message { get; set; }
     }
 }
